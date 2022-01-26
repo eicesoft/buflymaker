@@ -1,6 +1,6 @@
 {
   "name": "buflymaker",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "description": "A Visualization Form Design Library(base naiveui) for Vue3.js.",
   "license": "MIT",
   "bugs": {

@@ -11,7 +11,18 @@
         :type="data?.type === ElementTypes.input ? 'text' : 'textarea'"
         v-model:value="val"
         :placeholder="data.options.placeholder"
-        clearable
+        :clearable="data.options.clearable"
+      />
+    </template>
+
+    <template v-if="data?.type === ElementTypes.number">
+      <n-input-number
+        v-model:value="val"
+        :placeholder="data.options.placeholder"
+        :clearable="data.options.clearable"
+        :min="data.options.min"
+        :max="data.options.max"
+        :step="data.options.step"
       />
     </template>
 
@@ -42,7 +53,11 @@
     </template>
 
     <template v-else-if="data?.type === ElementTypes.select">
-      <n-select v-model:value="val" :options="data.options.options" clearable />
+      <n-select
+        v-model:value="val"
+        :options="data.options.options"
+        :clearable="data.options.clearable"
+      />
     </template>
 
     <template v-else-if="data?.type === ElementTypes.date">
@@ -50,7 +65,7 @@
         v-model:value="val"
         :placeholder="data.options.placeholder"
         type="date"
-        clearable
+        :clearable="data.options.clearable"
       />
     </template>
 
@@ -59,7 +74,7 @@
         v-model:formatted-value="val"
         value-format="HH:mm:ss"
         :placeholder="data.options.placeholder"
-        clearable
+        :clearable="data.options.clearable"
       />
     </template>
 
@@ -113,7 +128,7 @@
   import GenerateForm from './GenerateForm.vue';
 
   import { ElementItem, ElementTypes, ElementGroup } from './';
-  import {PropType, ref, watch} from 'vue';
+  import { PropType, ref, watch } from 'vue';
 
   const props = defineProps({
     data: {

@@ -8,7 +8,7 @@
       :size="option.size"
       ref="formRef"
     >
-      <div class="form-view">
+      <div class="form-list">
         <draggable
           class="draggable"
           animation="300"
@@ -19,14 +19,99 @@
           item-key="key"
         >
           <template #item="{ element, index }">
-            <FormItem
-              @copy="copyItem"
-              @remove="removeItem"
-              :data="element"
-              :index="index"
-              :active="selectElement != null && selectElement.key === element.key"
-              @change-item="changeSelect"
-            />
+            <template v-if="element.comp_type === ElementGroup.layout">
+              <div
+                :class="{
+                  'form-list': true,
+                  [element.comp_type]: true,
+                  hide: element.hide,
+                }"
+              >
+                <div
+                  @click.stop="changeSelect(element)"
+                  class="form-item"
+                  :class="{
+                    active: selectElement != null && selectElement.key === element.key,
+                  }"
+                >
+                  <div
+                    :class="{
+                      'move-active': selectElement != null && selectElement.key === element.key,
+                      move: true,
+                      icon: true,
+                    }"
+                  >
+                    <n-icon size="22">
+                      <DragOutlined />
+                    </n-icon>
+                  </div>
+
+                  <div
+                    v-show="selectElement != null && selectElement.key === element.key"
+                    class="tool"
+                  >
+                    <n-icon @click="copyItem(index, element)" class="icon" size="22">
+                      <CopyOutlined />
+                    </n-icon>
+
+                    <n-icon @click="removeItem(index)" class="icon" size="22">
+                      <DeleteOutlined />
+                    </n-icon>
+                  </div>
+
+                  <div class="tips">{{ element.key }}</div>
+
+                  <template v-if="element?.type === ElementTypes.grid">
+                    <n-grid x-gap="1" :cols="element.columns.length">
+                      <n-gi
+                        style="border: 1px dashed #ececec"
+                        :key="col_index"
+                        v-for="(column, col_index) in element.columns"
+                      >
+                        <FormView
+                          v-model:select="selectElement"
+                          v-model:list="column.list"
+                          @select-item="changeSelect"
+                        />
+                      </n-gi>
+                    </n-grid>
+                  </template>
+
+                  <template v-else-if="element?.type === ElementTypes.tab">
+                    <n-tabs type="line">
+                      <n-tab-pane
+                        :name="column.name"
+                        :tab="column.name"
+                        :key="col_index"
+                        v-for="(column, col_index) in element.columns"
+                      >
+                        <FormView
+                          v-model:select="selectElement"
+                          v-model:list="column.list"
+                          @select-item="changeSelect"
+                        />
+                      </n-tab-pane>
+                    </n-tabs>
+                  </template>
+
+                  <template v-else-if="element?.type === ElementTypes.divider">
+                    <n-divider />
+                  </template>
+                </div>
+              </div>
+            </template>
+
+            <template v-else>
+              <FormItem
+                :class="{ hide: element.hide }"
+                @copy="copyItem"
+                @remove="removeItem"
+                :data="element"
+                :index="index"
+                :active="selectElement != null && selectElement.key === element.key"
+                @change-item="changeSelect"
+              />
+            </template>
           </template>
         </draggable>
       </div>
@@ -36,8 +121,9 @@
 
 <script lang="ts" setup>
   import { ref, PropType, watch } from 'vue';
-  import { ElementItem, PageOptions } from './';
+  import { ElementItem, PageOptions, ElementGroup, ElementTypes } from './';
   import { cloneDeep, uniqueId } from 'lodash-es';
+  import { DragOutlined, DeleteOutlined, CopyOutlined } from '@vicons/antd';
 
   import draggable from 'vuedraggable';
   import FormItem from './FormItem.vue';
@@ -60,11 +146,15 @@
         return [];
       },
     },
+    select: {
+      type: Object as PropType<ElementItem>,
+    },
   });
 
-  const emit = defineEmits(['select-item', 'remove-item', 'update:list']);
+  const emit = defineEmits(['select-item', 'remove-item', 'update:list', 'update:select']);
 
   let listRef = ref<ElementItem[]>(props.list);
+  let selectElement = ref<ElementItem>();
 
   watch(
     () => props.list,
@@ -74,14 +164,24 @@
     }
   );
 
+  watch(
+    () => props.select,
+    (s) => {
+      selectElement.value = s;
+      emit('update:select', s);
+    },
+    {
+      immediate: true,
+      deep: true,
+    }
+  );
+
   watch(listRef, (list: any) => {
     console.log('watch', list);
     emit('update:list', list);
   });
-  let selectElement = ref<ElementItem>();
 
   const changeSelect = (item: ElementItem) => {
-    console.log(item);
     selectElement.value = item;
     emit('select-item', item);
   };
@@ -102,14 +202,15 @@
   const copyItem = (index: number, item: ElementItem) => {
     listRef.value.splice(index, 0, cloneElement(item));
   };
+
+  const clearSelect = () => {
+    selectElement.value = undefined;
+  };
+
+  defineExpose({
+    clearSelect,
+  });
 </script>
-<style lang="scss" scoped>
-  .form-view {
-    width: 100%;
-    user-select: none;
-    .draggable {
-      padding: 8px;
-      min-height: 80px;
-    }
-  }
+<style lang="scss">
+  @import './style.scss';
 </style>

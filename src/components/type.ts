@@ -55,9 +55,11 @@ export interface ElementItemOption {
   placeholder: string;
   disabled?: boolean;
   remote?: boolean;
+  clearable?: boolean;
   options?: OptionItem[];
   min?: number;
   max?: number;
+  step?: number;
 }
 
 export interface ElementItem {

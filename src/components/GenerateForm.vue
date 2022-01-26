@@ -8,12 +8,14 @@
     :size="option.size"
     ref="formRef"
   >
-    <GenerateFormItem @update="updateValue" :data="item" :key="item.key" v-for="item in list" />
+    <template :key="item.key" v-for="item in list">
+      <GenerateFormItem v-show="!item.hide" @update="updateValue" :data="item" />
+    </template>
   </n-form>
 </template>
 
 <script setup lang="ts">
-import {PropType, ref} from 'vue';
+  import { PropType, ref } from 'vue';
   import { ElementItem, PageOptions } from './';
   import GenerateFormItem from './GenerateFormItem.vue';
 

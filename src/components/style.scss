@@ -1,0 +1,141 @@
+$border-size: 2px;
+$basic-active-border-color: #ff8282;
+$basic-active-background-color: hsl(0, 50%, 98%);
+$basic-border-color: #cccccc;
+
+$advance-active-border-color: #526bf5;
+$advance-active-background-color: hsl(240, 45%, 98%);
+$advance-border-color: #cccccc;
+$border-size: 2px;
+$layout-active-border-color: #ffcb7c;
+$layout-active-background-color: hsl(36, 45%, 98%);
+$layout-border-color: #cccccc;
+
+$key-color: rgb(248, 53, 53);
+$key-hide-color: rgb(170, 170, 169);
+.hide {
+  .tips {
+    color: $key-hide-color !important;
+    font-style: italic;
+  }
+  .form-item {
+    border-style: dotted !important;
+  }
+}
+.form-list {
+  position: relative;
+  width: 100%;
+  margin: 4px 0;
+  position: relative;
+  .icon {
+    width: 22px;
+    height: 22px;
+  }
+  .tool {
+    height: 22px;
+  }
+  .form-item {
+    padding: 10px;
+
+    .custom {
+      background-color: #cccccc;
+      padding: 6px;
+    }
+  }
+  .basic {
+    .move-active {
+      background-color: $basic-active-border-color;
+    }
+    .tool {
+      background-color: $basic-active-border-color;
+    }
+    .form-item {
+      border: $border-size solid $basic-border-color;
+      &:hover {
+        border: $border-size solid $basic-active-border-color;
+        background-color: $basic-active-background-color;
+      }
+    }
+    .active {
+      border: $border-size solid $basic-active-border-color;
+      background-color: $basic-active-background-color;
+    }
+  }
+
+  .advance {
+    .move-active {
+      background-color: $advance-active-border-color;
+    }
+    .tool {
+      background-color: $advance-active-border-color;
+    }
+    .form-item {
+      border: $border-size solid $advance-border-color;
+      &:hover {
+        border: $border-size solid $advance-active-border-color;
+        background-color: $advance-active-background-color;
+      }
+    }
+    .active {
+      border: $border-size solid $advance-active-border-color;
+      background-color: $advance-active-background-color;
+    }
+  }
+
+  .layout {
+    position: relative;
+
+    .move-active {
+      background-color: $layout-active-border-color;
+    }
+    .tool {
+      background-color: $layout-active-border-color;
+    }
+    .form-item {
+      border: $border-size solid $layout-border-color;
+      &:hover {
+        border: $border-size solid $layout-active-border-color;
+        background-color: $layout-active-background-color;
+      }
+    }
+    .active {
+      border: $border-size solid $layout-active-border-color;
+      background-color: $layout-active-background-color;
+    }
+  }
+
+  .tips {
+    position: absolute;
+    right: 4px;
+    top: 0px;
+    font-size: 11px;
+    color: $key-color;
+    padding: 2px;
+    z-index: 100;
+    font-weight: 700;
+  }
+  .move {
+    color: $basic-border-color;
+    cursor: move;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    z-index: 100;
+  }
+  .move-active {
+    color: #fff;
+  }
+  .tool {
+    color: #fff;
+    cursor: pointer;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    padding: 2px;
+    z-index: 100;
+  }
+}
+
+.draggable {
+  min-height: 60px;
+}

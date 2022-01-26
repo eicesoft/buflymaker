@@ -1,4 +1,4 @@
-import {ElementGroup, ElementTypes} from "./type";
+import { ElementGroup, ElementTypes } from './type';
 
 export const Configs = {
   components: {
@@ -17,6 +17,7 @@ export const Configs = {
             pattern: '',
             placeholder: '请输入内容',
             disabled: false,
+            clearable: true,
           },
         },
         {
@@ -33,6 +34,26 @@ export const Configs = {
             pattern: '',
             placeholder: '请输入内容',
             disabled: false,
+            clearable: true,
+          },
+        },
+        {
+          type: ElementTypes.number,
+          label: '数字输入',
+          icon: 'icon-28fuwenbenkuang',
+          hide: false,
+          options: {
+            width: '100%',
+            defaultValue: 0,
+            max: 100,
+            min: 0,
+            step: 1,
+            required: false,
+            dataType: 'string',
+            pattern: '',
+            placeholder: '请输入内容',
+            disabled: false,
+            clearable: true,
           },
         },
         {
@@ -54,6 +75,7 @@ export const Configs = {
             ],
             required: false,
             disabled: false,
+            clearable: false,
           },
         },
         {
@@ -75,6 +97,7 @@ export const Configs = {
             ],
             required: false,
             disabled: false,
+            clearable: false,
           },
         },
         {
@@ -97,6 +120,7 @@ export const Configs = {
             mulitselect: false,
             required: false,
             disabled: false,
+            clearable: true,
           },
         },
         {
@@ -110,6 +134,7 @@ export const Configs = {
             mulitselect: false,
             required: false,
             disabled: false,
+            clearable: true,
           },
         },
         {
@@ -123,6 +148,7 @@ export const Configs = {
             mulitselect: false,
             required: false,
             disabled: false,
+            clearable: true,
           },
         },
         {
@@ -203,9 +229,7 @@ export const Configs = {
               list: [],
             },
           ],
-          options: {
-            column: 2,
-          },
+          options: {},
         },
         {
           type: ElementTypes.tab,
@@ -224,7 +248,6 @@ export const Configs = {
           ],
           options: {
             defaultValue: 'tab1',
-            column: 2,
           },
         },
         {
@@ -239,7 +262,6 @@ export const Configs = {
           ],
           options: {
             defaultValue: 'tab1',
-            column: 2,
           },
         },
 
