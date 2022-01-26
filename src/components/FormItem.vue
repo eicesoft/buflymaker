@@ -5,18 +5,18 @@
       [data?.comp_type]: true,
     }"
   >
-    <div :class="{ 'move-active': active, move: true }">
+    <div :class="{ 'move-active': active, move: true, icon: true }">
       <n-icon size="22">
         <DragOutlined />
       </n-icon>
     </div>
 
     <div v-show="active" class="tool">
-      <n-icon @click="copyItem" size="22">
+      <n-icon @click="copyItem" class="icon" size="22">
         <CopyOutlined />
       </n-icon>
 
-      <n-icon @click="removeItem" size="22">
+      <n-icon @click="removeItem" class="icon" size="22">
         <DeleteOutlined />
       </n-icon>
     </div>
@@ -221,6 +221,13 @@
     width: 100%;
     margin: 0 0 2px 0;
 
+    .icon {
+      width: 22px;
+      height: 22px;
+    }
+    .tool {
+      height: 22px;
+    }
     .form-item {
       padding: 10px;
 

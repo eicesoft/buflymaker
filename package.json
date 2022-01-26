@@ -1,6 +1,11 @@
 {
   "name": "buflymaker",
-  "version": "0.0.0",
+  "version": "0.1.0",
+  "description": "A Visualization Form Design Library(base naiveui) for Vue3.js.",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eicesoft/buflymaker/issues"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
@@ -11,6 +16,16 @@
     "vuedraggable": "^4.1.0",
     "vue-clipboard3": "^1.0.1",
     "lodash-es": "^4.17.21"
+  },
+  "keywords": [
+    "naiveui",
+    "vue3",
+    "components",
+    "form builder"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:eicesoft/buflymaker.git"
   },
   "devDependencies": {
     "@vicons/antd": "^0.10.0",
