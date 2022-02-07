@@ -138,10 +138,27 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script name="FormItem" setup lang="ts">
   import { ElementItem, ElementTypes, ElementGroup } from './';
   import { DragOutlined, DeleteOutlined, CopyOutlined } from '@vicons/antd';
   import { PropType } from 'vue';
+  import {
+    NFormItem,
+    NSwitch,
+    NSlider,
+    NInput,
+    NInputNumber,
+    NRate,
+    NRadio,
+    NRadioGroup,
+    NTimePicker,
+    NDatePicker,
+    NSpace,
+    NSelect,
+    NCheckbox,
+    NCheckboxGroup,
+    NIcon,
+  } from 'naive-ui';
 
   const props = defineProps({
     data: {
@@ -173,7 +190,7 @@
 
 <style lang="scss" scoped>
   .form-view {
-    margin: 4px 0;
+    margin: 2px;
     position: relative;
   }
 </style>

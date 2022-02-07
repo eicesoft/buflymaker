@@ -1,27 +1,31 @@
 <template>
-  <div class="comp-group" v-for="(comps, key) in configs.components" :key="key">
-    <div class="comp-title">{{ comps.label }}</div>
+  <div class="comp-group-container">
+    <div class="comp-group" v-for="(comps, key) in configs.components" :key="key">
+      <div class="comp-title">{{ comps.label }}</div>
 
-    <draggable
-      class="comp-item"
-      v-model="comps.list"
-      animation="300"
-      :group="{ name: 'formui', pull: 'clone', put: false }"
-      :clone="cloneElement"
-      item-key="key"
-      :sort="false"
-    >
-      <template #item="{ element }">
-        <div class="element-comp">
-          <span class="iconfont" :class="element.icon"></span>
-          {{ element.label }}
-        </div>
-      </template>
-    </draggable>
+      <draggable
+        class="comp-item"
+        v-model="comps.list"
+        animation="300"
+        :group="{ name: 'formui', pull: 'clone', put: false }"
+        :clone="cloneElement"
+        item-key="key"
+        :sort="false"
+      >
+        <template #item="{ element }">
+          <div class="element-comp">
+            <SvgIcon :name="element.icon" />
+            {{ element.label }}
+          </div>
+        </template>
+      </draggable>
+    </div>
   </div>
 </template>
 
-<script lang="ts" setup>
+<script name="ToolPanel" lang="ts" setup>
+  import SvgIcon from './SvgIcon.vue';
+
   import { reactive, ref, computed, Ref } from 'vue';
   import { ElementItem, Configs } from './';
   import { cloneDeep, uniqueId } from 'lodash-es';
@@ -57,30 +61,36 @@
 <style lang="scss" scoped>
   $active_color: #409eff;
   $color: #636363;
-  .comp-group {
-    user-select: none;
-    .comp-title {
-      margin: 4px 2px;
-      font-size: 15px;
-      padding: 0 8px;
-      border-left: 4px solid $active_color;
-    }
+  .comp-group-container {
+    height: 100%;
+    border-right: 1px solid #ececec;
+    padding: 8px;
+    .comp-group {
+      user-select: none;
 
-    .comp-item {
-      display: flex;
-      flex-flow: row wrap;
+      .comp-title {
+        margin: 4px 2px;
+        font-size: 15px;
+        padding: 0 8px;
+        border-left: 4px solid $active_color;
+      }
 
-      .element-comp {
-        border: 1px solid $color;
-        font-size: 12px;
-        color: $color;
-        margin: 4px;
-        padding: 4px;
-        border-radius: 2px;
-        cursor: move;
-        &:hover {
-          border: 1px solid $active_color;
-          color: $active_color;
+      .comp-item {
+        display: flex;
+        flex-flow: row wrap;
+
+        .element-comp {
+          border: 1px solid $color;
+          font-size: 12px;
+          color: $color;
+          margin: 4px;
+          padding: 4px;
+          border-radius: 2px;
+          cursor: move;
+          &:hover {
+            border: 1px solid $active_color;
+            color: $active_color;
+          }
         }
       }
     }

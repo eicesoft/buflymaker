@@ -59,7 +59,7 @@ export const Configs = {
         {
           type: ElementTypes.radio,
           label: '单选框',
-          icon: 'icon-radio',
+          icon: 'radio',
           hide: false,
           options: {
             defaultValue: null,
@@ -81,7 +81,7 @@ export const Configs = {
         {
           type: ElementTypes.checkbox,
           label: '多选框',
-          icon: 'icon-check-box-outline',
+          icon: 'checkbox',
           hide: false,
           options: {
             defaultValue: [],
@@ -184,7 +184,7 @@ export const Configs = {
         {
           type: ElementTypes.switch,
           label: '开关',
-          icon: 'icon-xialakuang',
+          icon: 'switch',
           hide: false,
           options: {
             defaultValue: false,

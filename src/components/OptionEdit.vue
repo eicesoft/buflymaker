@@ -31,7 +31,8 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script name="OptionEdit" lang="ts" setup>
+  import { NInput, NInputNumber, NButton, NIcon } from 'naive-ui';
   import { DeleteOutlined, BarsOutlined } from '@vicons/antd';
   import { OptionItem } from './';
 

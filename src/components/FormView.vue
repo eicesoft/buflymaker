@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="form-view-container">
     <n-form
       aria-readonly="true"
       :label-placement="option.position"
@@ -8,123 +8,152 @@
       :size="option.size"
       ref="formRef"
     >
-      <div class="form-list">
-        <draggable
-          class="draggable"
-          animation="300"
-          handle=".move"
-          ghostClass="ghost"
-          v-model="listRef"
-          :group="{ name: 'formui' }"
-          item-key="key"
-        >
-          <template #item="{ element, index }">
-            <template v-if="element.comp_type === ElementGroup.layout">
+      <draggable
+        class="draggable form-list"
+        animation="300"
+        handle=".move"
+        ghostClass="ghost"
+        v-model="listRef"
+        :group="{ name: 'formui' }"
+        item-key="key"
+      >
+        <template #item="{ element, index }">
+          <template v-if="element.comp_type === ElementGroup.layout">
+            <div
+              @click.stop="changeSelect(element)"
+              class="form-view layout"
+              :class="{
+                hide: element.hide,
+              }"
+            >
               <div
                 :class="{
-                  'form-list': true,
-                  [element.comp_type]: true,
-                  hide: element.hide,
+                  active: selectElement != null && selectElement.key === element.key,
+                  'form-item': true,
                 }"
               >
                 <div
-                  @click.stop="changeSelect(element)"
-                  class="form-item"
                   :class="{
-                    active: selectElement != null && selectElement.key === element.key,
+                    'move-active': selectElement != null && selectElement.key === element.key,
+                    move: true,
+                    icon: true,
                   }"
                 >
-                  <div
-                    :class="{
-                      'move-active': selectElement != null && selectElement.key === element.key,
-                      move: true,
-                      icon: true,
-                    }"
-                  >
-                    <n-icon size="22">
-                      <DragOutlined />
-                    </n-icon>
-                  </div>
-
-                  <div
-                    v-show="selectElement != null && selectElement.key === element.key"
-                    class="tool"
-                  >
-                    <n-icon @click="copyItem(index, element)" class="icon" size="22">
-                      <CopyOutlined />
-                    </n-icon>
-
-                    <n-icon @click="removeItem(index)" class="icon" size="22">
-                      <DeleteOutlined />
-                    </n-icon>
-                  </div>
-
-                  <div class="tips">{{ element.key }}</div>
-
-                  <template v-if="element?.type === ElementTypes.grid">
-                    <n-grid x-gap="1" :cols="element.columns.length">
-                      <n-gi
-                        style="border: 1px dashed #ececec"
-                        :key="col_index"
-                        v-for="(column, col_index) in element.columns"
-                      >
-                        <FormView
-                          v-model:select="selectElement"
-                          v-model:list="column.list"
-                          @select-item="changeSelect"
-                        />
-                      </n-gi>
-                    </n-grid>
-                  </template>
-
-                  <template v-else-if="element?.type === ElementTypes.tab">
-                    <n-tabs type="line">
-                      <n-tab-pane
-                        :name="column.name"
-                        :tab="column.name"
-                        :key="col_index"
-                        v-for="(column, col_index) in element.columns"
-                      >
-                        <FormView
-                          v-model:select="selectElement"
-                          v-model:list="column.list"
-                          @select-item="changeSelect"
-                        />
-                      </n-tab-pane>
-                    </n-tabs>
-                  </template>
-
-                  <template v-else-if="element?.type === ElementTypes.divider">
-                    <n-divider />
-                  </template>
+                  <n-icon size="22">
+                    <DragOutlined />
+                  </n-icon>
                 </div>
-              </div>
-            </template>
 
-            <template v-else>
-              <FormItem
-                :class="{ hide: element.hide }"
-                @copy="copyItem"
-                @remove="removeItem"
-                :data="element"
-                :index="index"
-                :active="selectElement != null && selectElement.key === element.key"
-                @change-item="changeSelect"
-              />
-            </template>
+                <div
+                  v-show="selectElement != null && selectElement.key === element.key"
+                  class="tool"
+                >
+                  <n-icon @click="copyItem(index, element)" class="icon" size="22">
+                    <CopyOutlined />
+                  </n-icon>
+
+                  <n-icon @click="removeItem(index)" class="icon" size="22">
+                    <DeleteOutlined />
+                  </n-icon>
+                </div>
+
+                <div class="tips">{{ element.key }}</div>
+
+                <template v-if="element?.type === ElementTypes.grid">
+                  <n-grid x-gap="1" :cols="element.columns.length">
+                    <n-gi
+                      style="border: 1px dashed #ececec"
+                      :key="col_index"
+                      v-for="(column, col_index) in element.columns"
+                    >
+                      <draggable
+                        class="draggable"
+                        animation="300"
+                        handle=".move"
+                        ghostClass="ghost"
+                        v-model="column.list"
+                        :group="{ name: 'formui' }"
+                        item-key="key"
+                      >
+                        <template #item="{ element, index }">
+                          <FormItem
+                            :class="{ hide: element.hide }"
+                            @copy="copyItem"
+                            @remove="removeItem"
+                            :data="element"
+                            :index="index"
+                            :active="selectElement != null && selectElement.key === element.key"
+                            @change-item="changeSelect"
+                          />
+                        </template>
+                      </draggable>
+                    </n-gi>
+                  </n-grid>
+                </template>
+
+                <template v-else-if="element?.type === ElementTypes.tab">
+                  <n-tabs type="line">
+                    <n-tab-pane
+                      :name="column.name"
+                      :tab="column.name"
+                      :key="col_index"
+                      v-for="(column, col_index) in element.columns"
+                    >
+                      <draggable
+                        class="draggable"
+                        animation="300"
+                        handle=".move"
+                        ghostClass="ghost"
+                        v-model="column.list"
+                        :group="{ name: 'formui' }"
+                        item-key="key"
+                      >
+                        <template #item="{ element, index }">
+                          <FormItem
+                            :class="{ hide: element.hide }"
+                            @copy="copyItem"
+                            @remove="removeItem"
+                            :data="element"
+                            :index="index"
+                            :active="selectElement != null && selectElement.key === element.key"
+                            @change-item="changeSelect"
+                          />
+                        </template>
+                      </draggable>
+                    </n-tab-pane>
+                  </n-tabs>
+                </template>
+
+                <template v-else-if="element?.type === ElementTypes.divider">
+                  <n-divider />
+                </template>
+              </div>
+            </div>
           </template>
-        </draggable>
-      </div>
+
+          <template v-else>
+            <FormItem
+              :class="{ hide: element.hide }"
+              @copy="copyItem"
+              @remove="removeItem"
+              :data="element"
+              :index="index"
+              :active="selectElement != null && selectElement.key === element.key"
+              @change-item="changeSelect"
+            />
+          </template>
+        </template>
+      </draggable>
     </n-form>
   </div>
 </template>
 
-<script lang="ts" setup>
+<script name="FormView" lang="ts" setup>
   import { ref, PropType, watch } from 'vue';
   import { ElementItem, PageOptions, ElementGroup, ElementTypes } from './';
   import { cloneDeep, uniqueId } from 'lodash-es';
   import { DragOutlined, DeleteOutlined, CopyOutlined } from '@vicons/antd';
-
+  import { NForm, NDivider, NIcon, NTabs, NTabPane, NGrid, NGi } from 'naive-ui';
   import draggable from 'vuedraggable';
   import FormItem from './FormItem.vue';
 
@@ -213,4 +242,7 @@
 </script>
 <style lang="scss">
   @import './style.scss';
+  .form-view-container {
+    border: 1px dashed #ececec;
+  }
 </style>

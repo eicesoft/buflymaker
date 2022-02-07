@@ -9,12 +9,14 @@
     ref="formRef"
   >
     <template :key="item.key" v-for="item in list">
-      <GenerateFormItem v-show="!item.hide" @update="updateValue" :data="item" />
+      <GenerateFormItem v-if="!item.hide" @update="updateValue" :item="item" />
     </template>
   </n-form>
 </template>
 
-<script setup lang="ts">
+<script name="GenerateForm" setup lang="ts">
+  import { NForm } from 'naive-ui';
+
   import { PropType, ref } from 'vue';
   import { ElementItem, PageOptions } from './';
   import GenerateFormItem from './GenerateFormItem.vue';
@@ -39,10 +41,12 @@
   });
 
   const emit = defineEmits(['change']);
-  const formModel = ref({});
+  //表单值
+  let formModel = ref({});
 
   const updateValue = (val: any, item: ElementItem) => {
     formModel.value[item.key] = val;
+
     emit('change', val, item);
   };
 

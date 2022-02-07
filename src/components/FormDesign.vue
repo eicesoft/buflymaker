@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <n-grid x-gap="12" :cols="24">
+  <div class="container">
+    <n-grid style="min-height: 100%" x-gap="12" :cols="24">
       <n-gi span="4">
         <ToolPanel />
       </n-gi>
@@ -144,9 +144,20 @@
   </div>
 </template>
 
-<script lang="ts" setup>
+<script name="FormDesign" lang="ts" setup>
   import { ref } from 'vue';
-  import { useMessage } from 'naive-ui';
+  import {
+    useMessage,
+    NGridItem,
+    NGi,
+    NGrid,
+    NModal,
+    NButton,
+    NInput,
+    NSpace,
+    NIcon,
+    NPopconfirm,
+  } from 'naive-ui';
   import ToolPanel from './ToolPanel.vue';
   import FormView from './FormView.vue';
   import ElementPropertie from './ElementPropertie.vue';
@@ -253,6 +264,9 @@
   };
 </script>
 <style lang="scss">
+  body {
+    height: 100%;
+  }
   .ghost {
     background: #f83838;
     border: 1px solid #f83838;
@@ -268,20 +282,22 @@
     cursor: move;
   }
 </style>
-<style lang="scss" scoped>
-  code {
-    font-size: 11px;
+<style lang="scss">
+  .container {
+    height: calc(100% - 50px);
 
-    word-break: break-all;
-  }
-  .form-container {
-    border-left: 1px solid #ececec;
-    border-right: 1px solid #ececec;
-    padding: 0 8px;
-    .toolbar {
-      padding: 0 0 5px 0;
-      margin: 0 0 5px 0;
-      border-bottom: 1px solid #ececec;
+    code {
+      font-size: 11px;
+      word-break: break-all;
+    }
+    .form-container {
+      position: relative;
+      margin: 8px;
+      .toolbar {
+        padding: 0 0 5px 0;
+        margin: 0 0 5px 0;
+        border-bottom: 1px solid #ececec;
+      }
     }
   }
 </style>

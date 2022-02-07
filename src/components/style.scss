@@ -1,4 +1,4 @@
-$border-size: 2px;
+$border-size: 1px;
 $basic-active-border-color: #ff8282;
 $basic-active-background-color: hsl(0, 50%, 98%);
 $basic-border-color: #cccccc;
@@ -6,7 +6,7 @@ $basic-border-color: #cccccc;
 $advance-active-border-color: #526bf5;
 $advance-active-background-color: hsl(240, 45%, 98%);
 $advance-border-color: #cccccc;
-$border-size: 2px;
+$border-size: 1px;
 $layout-active-border-color: #ffcb7c;
 $layout-active-background-color: hsl(36, 45%, 98%);
 $layout-border-color: #cccccc;
@@ -22,17 +22,18 @@ $key-hide-color: rgb(170, 170, 169);
     border-style: dotted !important;
   }
 }
+
 .form-list {
-  position: relative;
-  width: 100%;
-  margin: 4px 0;
-  position: relative;
   .icon {
     width: 22px;
     height: 22px;
   }
   .tool {
     height: 22px;
+  }
+  .form-view {
+    position: relative;
+    margin: 2px;
   }
   .form-item {
     padding: 10px;
@@ -44,59 +45,58 @@ $key-hide-color: rgb(170, 170, 169);
   }
   .basic {
     .move-active {
-      background-color: $basic-active-border-color;
+      background-color: $basic-active-border-color !important;
     }
     .tool {
-      background-color: $basic-active-border-color;
+      background-color: $basic-active-border-color !important;
     }
     .form-item {
-      border: $border-size solid $basic-border-color;
+      border: $border-size dotted $basic-border-color !important;
       &:hover {
-        border: $border-size solid $basic-active-border-color;
-        background-color: $basic-active-background-color;
+        border: $border-size solid $basic-active-border-color !important;
+        background-color: $basic-active-background-color !important;
       }
     }
     .active {
-      border: $border-size solid $basic-active-border-color;
-      background-color: $basic-active-background-color;
+      border: $border-size solid $basic-active-border-color !important;
+      background-color: $basic-active-background-color !important;
     }
   }
 
   .advance {
     .move-active {
-      background-color: $advance-active-border-color;
+      background-color: $advance-active-border-color !important;
     }
     .tool {
-      background-color: $advance-active-border-color;
+      background-color: $advance-active-border-color !important;
     }
     .form-item {
-      border: $border-size solid $advance-border-color;
+      border: $border-size dotted $advance-border-color !important;
       &:hover {
-        border: $border-size solid $advance-active-border-color;
-        background-color: $advance-active-background-color;
+        border: $border-size solid $advance-active-border-color !important;
+        background-color: $advance-active-background-color !important;
       }
     }
     .active {
-      border: $border-size solid $advance-active-border-color;
-      background-color: $advance-active-background-color;
+      border: $border-size solid $advance-active-border-color !important;
+      background-color: $advance-active-background-color !important;
     }
   }
 
   .layout {
-    position: relative;
+    .form-item {
+      border: $border-size dotted $layout-border-color;
 
+      &:hover {
+        border: $border-size solid $layout-active-border-color;
+        background-color: $layout-active-background-color;
+      }
+    }
     .move-active {
       background-color: $layout-active-border-color;
     }
     .tool {
       background-color: $layout-active-border-color;
-    }
-    .form-item {
-      border: $border-size solid $layout-border-color;
-      &:hover {
-        border: $border-size solid $layout-active-border-color;
-        background-color: $layout-active-background-color;
-      }
     }
     .active {
       border: $border-size solid $layout-active-border-color;
@@ -137,5 +137,5 @@ $key-hide-color: rgb(170, 170, 169);
 }
 
 .draggable {
-  min-height: 60px;
+  min-height: 180px;
 }
