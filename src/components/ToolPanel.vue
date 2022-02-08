@@ -28,7 +28,7 @@
 
   import { reactive, ref, computed, Ref } from 'vue';
   import { ElementItem, Configs } from './';
-  import { cloneDeep, uniqueId } from 'lodash-es';
+  import { cloneDeep, uniqueId } from './util';
   import draggable from 'vuedraggable';
 
   const configs = reactive(Configs);
@@ -50,8 +50,9 @@
   const cloneElement = (item: ElementItem) => {
     let clone_item: ElementItem = cloneDeep(item);
     clone_item.label = item.label + '_' + ++elementId.value;
-    clone_item.key = uniqueId('ele_' + new Date().getTime() + '_');
+    clone_item.key = uniqueId('ele');
     clone_item.comp_type = ComponentTypes.value[item.type];
+    clone_item.icon = '';
     console.log(clone_item);
 
     return clone_item;

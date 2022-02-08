@@ -6,18 +6,18 @@
     }"
   >
     <div :class="{ 'move-active': active, move: true, icon: true }">
-      <n-icon size="22">
-        <DragOutlined />
+      <n-icon size="20">
+        <SvgIcon name="move" color="#fff" />
       </n-icon>
     </div>
 
     <div v-show="active" class="tool">
-      <n-icon @click="copyItem" class="icon" size="22">
-        <CopyOutlined />
+      <n-icon @click="copyItem" class="icon" size="20">
+        <SvgIcon name="copy" color="#fff" />
       </n-icon>
 
-      <n-icon @click="removeItem" class="icon" size="22">
-        <DeleteOutlined />
+      <n-icon @click="removeItem" class="icon" size="20">
+        <SvgIcon name="delete" color="#fff" />
       </n-icon>
     </div>
     <div class="tips">{{ data?.key }}</div>
@@ -140,7 +140,7 @@
 
 <script name="FormItem" setup lang="ts">
   import { ElementItem, ElementTypes, ElementGroup } from './';
-  import { DragOutlined, DeleteOutlined, CopyOutlined } from '@vicons/antd';
+  import SvgIcon from './SvgIcon.vue';
   import { PropType } from 'vue';
   import {
     NFormItem,

@@ -9,7 +9,7 @@ export const Configs = {
           type: ElementTypes.input,
           label: '输入框',
           hide: false,
-          icon: 'icon-danhangshurukuang',
+          icon: 'input',
           options: {
             width: '100%',
             defaultValue: '',
@@ -23,7 +23,7 @@ export const Configs = {
         {
           type: ElementTypes.textarea,
           label: '文本域',
-          icon: 'icon-28fuwenbenkuang',
+          icon: 'textarea',
           hide: false,
           options: {
             width: '100%',
@@ -40,7 +40,7 @@ export const Configs = {
         {
           type: ElementTypes.number,
           label: '数字输入',
-          icon: 'icon-28fuwenbenkuang',
+          icon: 'number',
           hide: false,
           options: {
             width: '100%',
@@ -103,7 +103,7 @@ export const Configs = {
         {
           type: ElementTypes.select,
           label: '下拉框',
-          icon: 'icon-xialakuang',
+          icon: 'select',
           hide: false,
           options: {
             defaultValue: '',
@@ -126,7 +126,7 @@ export const Configs = {
         {
           type: ElementTypes.date,
           label: '日期',
-          icon: 'icon-xialakuang',
+          icon: 'date',
           hide: false,
           options: {
             defaultValue: null,
@@ -140,7 +140,7 @@ export const Configs = {
         {
           type: ElementTypes.time,
           label: '时间',
-          icon: 'icon-xialakuang',
+          icon: 'time',
           hide: false,
           options: {
             defaultValue: null,
@@ -154,7 +154,7 @@ export const Configs = {
         {
           type: ElementTypes.rate,
           label: '评分',
-          icon: 'icon-xialakuang',
+          icon: 'star',
           hide: false,
           options: {
             defaultValue: null,
@@ -169,7 +169,7 @@ export const Configs = {
         {
           type: ElementTypes.slider,
           label: '范围',
-          icon: 'icon-xialakuang',
+          icon: 'slider',
           hide: false,
           options: {
             defaultValue: [0, 100],
@@ -202,7 +202,7 @@ export const Configs = {
         {
           type: ElementTypes.custom,
           label: '自定义区域',
-          icon: 'icon-tab',
+          icon: 'custom',
           hide: false,
           columns: [],
           options: {
@@ -217,7 +217,7 @@ export const Configs = {
         {
           type: ElementTypes.grid,
           label: '宫格布局',
-          icon: 'icon-grid',
+          icon: 'grid',
           hide: false,
           columns: [
             {
@@ -234,7 +234,7 @@ export const Configs = {
         {
           type: ElementTypes.tab,
           label: '标签页',
-          icon: 'icon-tab',
+          icon: 'tab',
           hide: false,
           columns: [
             {
@@ -264,12 +264,11 @@ export const Configs = {
             defaultValue: 'tab1',
           },
         },
-
         {
           type: ElementTypes.divider,
           hide: false,
           label: '分割线',
-          icon: 'icon-slider',
+          icon: 'divider',
           options: {},
         },
       ],

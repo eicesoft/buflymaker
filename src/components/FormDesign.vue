@@ -10,25 +10,26 @@
             <n-space>
               <n-button strong secondary @click="importInfo" round size="small">
                 <template #icon>
-                  <n-icon>
-                    <CloudUploadOutlined />
+                  <n-icon size="16">
+                    <SvgIcon name="import" />
                   </n-icon>
                 </template>
-
                 导入
               </n-button>
+
               <n-button strong secondary @click="exportInfo" round size="small">
                 <template #icon>
-                  <n-icon>
-                    <CloudDownloadOutlined />
+                  <n-icon size="16">
+                    <SvgIcon name="export" />
                   </n-icon>
                 </template>
                 导出
               </n-button>
+
               <n-button strong secondary @click="preview" round size="small" type="success">
                 <template #icon>
-                  <n-icon>
-                    <CompassOutlined />
+                  <n-icon size="16">
+                    <SvgIcon name="preview" color="#18a058" />
                   </n-icon>
                 </template>
                 预览
@@ -43,8 +44,8 @@
                 <template #trigger>
                   <n-button strong secondary round size="small" type="error">
                     <template #icon>
-                      <n-icon>
-                        <ClearOutlined />
+                      <n-icon size="16">
+                        <SvgIcon name="clear" color="#d03050" />
                       </n-icon>
                     </template>
                     清空
@@ -56,8 +57,8 @@
 
               <n-button strong secondary @click="save" round size="small" type="info">
                 <template #icon>
-                  <n-icon>
-                    <SaveFilled />
+                  <n-icon size="16">
+                    <SvgIcon name="save" color="#2080f0" />
                   </n-icon>
                 </template>
                 保存
@@ -89,11 +90,11 @@
         <div>表单信息</div>
       </template>
       <div>
-        <n-input readonly rows="8" type="textarea" v-model:value="exportJsonInfo" />
+        <n-input autofocus readonly rows="8" type="textarea" v-model:value="exportJsonInfo" />
       </div>
       <template #action>
         <div>
-          <n-button @click="copy">复制</n-button>
+          <n-button v-clipboard="exportJsonInfo">复制</n-button>
         </div>
       </template>
     </n-modal>
@@ -148,7 +149,6 @@
   import { ref } from 'vue';
   import {
     useMessage,
-    NGridItem,
     NGi,
     NGrid,
     NModal,
@@ -162,17 +162,8 @@
   import FormView from './FormView.vue';
   import ElementPropertie from './ElementPropertie.vue';
   import GenerateForm from './GenerateForm.vue';
-
-  import {
-    ClearOutlined,
-    CloudDownloadOutlined,
-    CloudUploadOutlined,
-    CompassOutlined,
-    SaveFilled,
-  } from '@vicons/antd';
-
+  import SvgIcon from './SvgIcon.vue';
   import { ElementItem, PageOptions } from './';
-  import useClipboard from 'vue-clipboard3';
 
   const formViewRef = ref();
   const showExportInfo = ref(false);
@@ -186,7 +177,6 @@
   let selectElementItem = ref<ElementItem>();
 
   const message = useMessage();
-  const { toClipboard } = useClipboard();
   let list = ref([]);
 
   let pageOption = ref<PageOptions>({
@@ -201,6 +191,7 @@
   };
 
   const clear = () => {
+    selectElementItem.value = undefined;
     list.value = [];
   };
 
@@ -239,15 +230,7 @@
   };
 
   const copy = async () => {
-    try {
-      console.log(exportJsonInfo.value);
-      await toClipboard(exportJsonInfo.value);
-      message.success('复制成功');
-      console.log('Copied to clipboard');
-    } catch (e) {
-      console.error(e);
-      message.error('复制失败');
-    }
+    message.success('复制成功');
   };
 
   const showValue = () => {

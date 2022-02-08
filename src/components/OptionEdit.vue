@@ -10,7 +10,9 @@
       <template #item="{ element, index }">
         <div inline class="flex-item">
           <div>
-            <n-icon class="move" size="24"> <BarsOutlined /> </n-icon>
+            <n-icon class="move" size="20">
+              <SvgIcon name="bars" color="#cccccc" />
+            </n-icon>
           </div>
           <div>
             <n-input v-model:value="element.label" type="text" placeholder="标签" />
@@ -19,8 +21,8 @@
             <n-input-number v-model:value="element.value" placeholder="值" clearable />
           </div>
           <div>
-            <n-icon size="24" @click="removeItem(index)">
-              <DeleteOutlined />
+            <n-icon size="22" @click="removeItem(index)">
+              <SvgIcon name="delete" />
             </n-icon>
           </div>
         </div>
@@ -33,7 +35,8 @@
 
 <script name="OptionEdit" lang="ts" setup>
   import { NInput, NInputNumber, NButton, NIcon } from 'naive-ui';
-  import { DeleteOutlined, BarsOutlined } from '@vicons/antd';
+  import SvgIcon from './SvgIcon.vue';
+
   import { OptionItem } from './';
 
   import draggable from 'vuedraggable';

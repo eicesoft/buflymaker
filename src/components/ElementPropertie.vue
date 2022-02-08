@@ -4,22 +4,23 @@
     <n-tabs size="small" type="line">
       <n-tab-pane name="field" tab="字段属性">
         <n-form
-          v-if="compOptions != null"
+          v-if="compOptions != undefined"
           label-width="auto"
           :model="formValue"
           :size="'small'"
           ref="formRef"
         >
-          <n-form-item label="Key:" path="key">
-            <n-input v-model:value="compOptions.key" />
+          <n-form-item required label="Key:" path="key">
+            <n-input required v-model:value="compOptions.key" placeholder="请输入Key" />
           </n-form-item>
 
           <n-form-item
+            required
             v-if="compOptions.comp_type !== ElementGroup.layout"
             label="标签:"
             path="label"
           >
-            <n-input v-model:value="compOptions.label" />
+            <n-input v-model:value="compOptions.label" placeholder="请输入标签" />
           </n-form-item>
 
           <n-form-item
@@ -27,12 +28,12 @@
             label="占位内容:"
             path="placeholder"
           >
-            <n-input v-model:value="compOptions.options.placeholder" />
+            <n-input v-model:value="compOptions.options.placeholder" placeholder="请输入占位内容" />
           </n-form-item>
 
           <!--默认值相关处理-->
           <n-form-item v-if="isEditType" label="默认值:" path="default_value">
-            <n-input v-model:value="compOptions.options.defaultValue" />
+            <n-input v-model:value="compOptions.options.defaultValue" placeholder="请输入默认值" />
           </n-form-item>
 
           <n-form-item label="隐藏:" path="hide">
@@ -47,7 +48,7 @@
             <n-switch v-model:value="compOptions.options.required" />
           </n-form-item>
 
-          <n-form-item v-if="isClearable" label="clearable:" path="clearable">
+          <n-form-item v-if="isClearable" label="可清除:" path="clearable">
             <n-switch v-model:value="compOptions.options.clearable" />
           </n-form-item>
 
@@ -100,12 +101,12 @@
               >
                 <template #item="{ element, index }">
                   <div class="column-flex">
-                    <n-icon class="move" size="24">
-                      <BarsOutlined />
+                    <n-icon class="move" size="20">
+                      <SvgIcon name="bars" color="#333333" />
                     </n-icon>
                     <n-input v-model:value="element.name" />
-                    <n-icon size="24" @click="removeColumn(index)">
-                      <DeleteOutlined />
+                    <n-icon size="20" @click="removeColumn(index)">
+                      <SvgIcon name="delete" color="#333333" />
                     </n-icon>
                   </div>
                 </template>
@@ -126,6 +127,8 @@
             <OptionEdit v-model:options="compOptions.options.options" />
           </n-form-item>
         </n-form>
+
+        <div v-else> 请选择元素 </div>
       </n-tab-pane>
 
       <n-tab-pane name="form" tab="表单属性">
@@ -160,7 +163,8 @@
 <script name="ElementPropertie" setup lang="ts">
   import { ref, watch, PropType, computed } from 'vue';
   import OptionEdit from './OptionEdit.vue';
-  import { DeleteOutlined, BarsOutlined } from '@vicons/antd';
+  import SvgIcon from './SvgIcon.vue';
+
   import { ElementItem, ElementTypes, PageOptions, ElementGroup } from './';
   import {
     NTabs,
@@ -236,7 +240,7 @@
     });
   };
 
-  const removeColumn = (index) => {
+  const removeColumn = (index: number) => {
     compOptions.value?.columns?.splice(index, 1);
   };
 
@@ -279,7 +283,9 @@
     (select: any) => {
       // console.log('ele change', select);
       compOptions.value = select;
-      columnLength.value = select.columns?.length;
+      if (select !== undefined) {
+        columnLength.value = select.columns?.length;
+      }
     }
   );
 

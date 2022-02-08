@@ -1,0 +1,16 @@
+  // "files": [
+  //   "dist"
+  // ],
+  // "private": false,
+  // "module": "./dist/build.es.ts",
+  // "main": "./dist/build.umd.ts",
+  // "exports": {
+  //   ".": {
+  //     "import": "./dist/build.es.ts",
+  //     "require": "./dist/build.umd.ts"
+  //   },
+  //   "./dist/style.css": {
+  //     "import": "./dist/style.css",
+  //     "require": "./dist/style.css"
+  //   }
+  // },

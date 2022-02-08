@@ -127,6 +127,8 @@
 <script name="GenerateFormItem" setup lang="ts">
   import GenerateForm from './GenerateForm.vue';
   import {
+    NGi,
+    NGrid,
     NFormItem,
     NSwitch,
     NSlider,

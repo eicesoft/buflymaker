@@ -39,8 +39,8 @@
                     icon: true,
                   }"
                 >
-                  <n-icon size="22">
-                    <DragOutlined />
+                  <n-icon size="20">
+                    <SvgIcon name="move" color="#fff" />
                   </n-icon>
                 </div>
 
@@ -49,11 +49,11 @@
                   class="tool"
                 >
                   <n-icon @click="copyItem(index, element)" class="icon" size="22">
-                    <CopyOutlined />
+                    <SvgIcon name="copy" color="#fff" />
                   </n-icon>
 
                   <n-icon @click="removeItem(index)" class="icon" size="22">
-                    <DeleteOutlined />
+                    <SvgIcon name="delete" color="#fff" />
                   </n-icon>
                 </div>
 
@@ -151,10 +151,10 @@
 <script name="FormView" lang="ts" setup>
   import { ref, PropType, watch } from 'vue';
   import { ElementItem, PageOptions, ElementGroup, ElementTypes } from './';
-  import { cloneDeep, uniqueId } from 'lodash-es';
-  import { DragOutlined, DeleteOutlined, CopyOutlined } from '@vicons/antd';
+  import { cloneDeep, uniqueId } from './util';
   import { NForm, NDivider, NIcon, NTabs, NTabPane, NGrid, NGi } from 'naive-ui';
   import draggable from 'vuedraggable';
+  import SvgIcon from './SvgIcon.vue';
   import FormItem from './FormItem.vue';
 
   const formRef = ref(null);
@@ -222,14 +222,14 @@
   const cloneElement = (item: ElementItem) => {
     let clone_item = cloneDeep(item);
     clone_item.label = item.label;
-    clone_item.key = uniqueId('ele_' + new Date().getTime() + '_');
+    clone_item.key = uniqueId('ele_');
     clone_item.comp_type = item.comp_type;
 
     return clone_item;
   };
 
   const copyItem = (index: number, item: ElementItem) => {
-    listRef.value.splice(index, 0, cloneElement(item));
+    listRef.value.splice(index + 1, 0, cloneElement(item));
   };
 
   const clearSelect = () => {

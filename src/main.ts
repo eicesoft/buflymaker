@@ -1,9 +1,8 @@
 import { createApp } from 'vue';
+import { VueClipboard } from '@soerenmartius/vue3-clipboard';
+
 import 'virtual:svg-icons-register';
 
 import App from './App.vue';
 
-const app = createApp(App);
-// app.use(naive);
-
-app.mount('#app');
+createApp(App).use(VueClipboard).mount('#app');

@@ -31,8 +31,8 @@
 </script>
 <style lang="scss" scoped>
   .svg-icon-spin {
-    width: 1em;
-    height: 1em;
+    width: 1.2em;
+    height: 1.2em;
     fill: currentColor;
     vertical-align: middle;
   }
