@@ -8,17 +8,56 @@
     :size="option.size"
     ref="formRef"
   >
-    <template :key="item.key" v-for="item in list">
-      <GenerateFormItem v-if="!item.hide" @update="updateValue" :item="item" />
+    <template :key="element.key" v-for="element in list">
+      <template v-if="element.comp_type === ElementGroup.layout">
+        <template v-if="element?.type === ElementTypes.grid">
+          <n-grid :x-gap="20" :y-gap="20" :cols="element.columns.length">
+            <n-gi :key="col_index" v-for="(column, col_index) in element.columns">
+              <template :key="col_element.key" v-for="col_element in column.list">
+                <GenerateFormItem
+                  v-if="!col_element.hide"
+                  @update="updateValue"
+                  :item="col_element"
+                />
+              </template>
+            </n-gi>
+          </n-grid>
+        </template>
+
+        <template v-else-if="element?.type === ElementTypes.tab">
+          <n-tabs type="line">
+            <n-tab-pane
+              :key="col_index"
+              v-for="(column, col_index) in element.columns"
+              :name="column.name"
+              :tab="column.name"
+            >
+              <template :key="col_element.key" v-for="col_element in column.list">
+                <GenerateFormItem
+                  v-if="!col_element.hide"
+                  @update="updateValue"
+                  :item="col_element"
+                />
+              </template>
+            </n-tab-pane> </n-tabs
+        ></template>
+
+        <template v-else-if="element?.type === ElementTypes.divider">
+          <n-divider />
+        </template>
+      </template>
+
+      <template v-else>
+        <GenerateFormItem v-if="!element.hide" @update="updateValue" :item="element" />
+      </template>
     </template>
   </n-form>
 </template>
 
 <script name="GenerateForm" setup lang="ts">
-  import { NForm } from 'naive-ui';
-
   import { PropType, ref } from 'vue';
-  import { ElementItem, PageOptions } from './';
+  import { NForm, NGrid, NGi, NTabs, NTabPane } from 'naive-ui';
+  import { ElementItem, ElementGroup, PageOptions, ElementTypes } from './';
   import GenerateFormItem from './GenerateFormItem.vue';
 
   defineProps({
@@ -34,6 +73,12 @@
     },
     list: {
       type: Array as PropType<ElementItem[]>,
+      default() {
+        return [];
+      },
+    },
+    remoteMethod: {
+      type: Array,
       default() {
         return [];
       },

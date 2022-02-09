@@ -95,34 +95,11 @@
     <template v-else-if="item?.type === ElementTypes.switch">
       <n-switch v-model:value="val" />
     </template>
+
+    <template v-else-if="item?.type === ElementTypes.color">
+      <n-color-picker v-model:value="val" />
+    </template>
   </n-form-item>
-
-  <div v-if="item?.comp_type === ElementGroup.layout">
-    <template v-if="item?.type === ElementTypes.grid">
-      <n-grid x-gap="1" :cols="item.columns.length">
-        <n-gi :key="col_index" v-for="(column, col_index) in item.columns">
-          <GenerateForm @change="childChange" :list="column.list" />
-        </n-gi>
-      </n-grid>
-    </template>
-
-    <template v-else-if="item?.type === ElementTypes.tab">
-      <n-tabs type="line">
-        <n-tab-pane
-          :name="column.name"
-          :tab="column.name"
-          :key="col_index"
-          v-for="(column, col_index) in item.columns"
-        >
-          <GenerateForm @change="childChange" :list="column.list" />
-        </n-tab-pane>
-      </n-tabs>
-    </template>
-
-    <template v-else-if="item?.type === ElementTypes.divider">
-      <n-divider />
-    </template>
-  </div>
 </template>
 <script name="GenerateFormItem" setup lang="ts">
   import GenerateForm from './GenerateForm.vue';
@@ -145,6 +122,7 @@
     NCheckboxGroup,
     NTabs,
     NTabPane,
+    NColorPicker,
   } from 'naive-ui';
   import { ElementItem, ElementTypes, ElementGroup } from './';
   import { PropType, ref, watch } from 'vue';
@@ -155,7 +133,7 @@
     },
   });
 
-  const val = ref(props.item.options.defaultValue);
+  const val = ref(props.item?.options.defaultValue);
 
   const emit = defineEmits(['update']);
   watch(

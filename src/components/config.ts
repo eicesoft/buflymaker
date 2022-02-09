@@ -63,6 +63,12 @@ export const Configs = {
           hide: false,
           options: {
             defaultValue: null,
+            isRemote: false,
+            remote: {
+              method: 'remote_func',
+              label: 'label',
+              value: 'value',
+            },
             options: [
               {
                 label: '选项1',
@@ -85,6 +91,12 @@ export const Configs = {
           hide: false,
           options: {
             defaultValue: [],
+            isRemote: false,
+            remote: {
+              method: 'remote_func',
+              label: 'label',
+              value: 'value',
+            },
             options: [
               {
                 label: '选项1',
@@ -107,6 +119,12 @@ export const Configs = {
           hide: false,
           options: {
             defaultValue: '',
+            isRemote: false,
+            remote: {
+              method: 'remote_func',
+              label: 'label',
+              value: 'value',
+            },
             options: [
               {
                 label: '选项1',
@@ -132,6 +150,7 @@ export const Configs = {
             defaultValue: null,
             options: [],
             mulitselect: false,
+            placeholder: '请输入日期',
             required: false,
             disabled: false,
             clearable: true,
@@ -145,6 +164,7 @@ export const Configs = {
           options: {
             defaultValue: null,
             options: [],
+            placeholder: '请输入时间',
             mulitselect: false,
             required: false,
             disabled: false,
@@ -188,6 +208,19 @@ export const Configs = {
           hide: false,
           options: {
             defaultValue: false,
+            options: [],
+            mulitselect: false,
+            required: false,
+            disabled: false,
+          },
+        },
+        {
+          type: ElementTypes.color,
+          label: '颜色选择',
+          icon: 'color',
+          hide: false,
+          options: {
+            defaultValue: '#000000',
             options: [],
             mulitselect: false,
             required: false,

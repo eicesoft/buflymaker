@@ -124,7 +124,11 @@
             label="选项:"
             path="items"
           >
-            <OptionEdit v-model:options="compOptions.options.options" />
+            <OptionEdit
+              v-model:options="compOptions.options.options"
+              v-model:remote="compOptions.options.remote"
+              v-model:mode="compOptions.options.isRemote"
+            />
           </n-form-item>
         </n-form>
 

@@ -123,6 +123,10 @@
       <template v-else-if="data?.type === ElementTypes.switch">
         <n-switch v-model:value="data.options.defaultValue" />
       </template>
+
+      <template v-else-if="data?.type === ElementTypes.color">
+        <n-color-picker disabled v-model:value="data.options.defaultValue" />
+      </template>
     </n-form-item>
 
     <div
@@ -158,6 +162,7 @@
     NCheckbox,
     NCheckboxGroup,
     NIcon,
+    NColorPicker,
   } from 'naive-ui';
 
   const props = defineProps({

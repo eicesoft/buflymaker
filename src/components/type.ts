@@ -10,6 +10,7 @@ export enum ElementTypes {
   rate,
   slider,
   switch,
+  color,
   tree,
   cascader,
   editor,
@@ -47,6 +48,12 @@ export interface OptionItem {
   label: string;
 }
 
+export interface RemoteOption {
+  method: string;
+  label: 'label';
+  value: 'value';
+}
+
 export interface ElementItemOption {
   width?: string;
   defaultValue: any;
@@ -54,9 +61,10 @@ export interface ElementItemOption {
   required?: boolean;
   placeholder: string;
   disabled?: boolean;
-  remote?: boolean;
   clearable?: boolean;
   options?: OptionItem[];
+  remote?: RemoteOption;
+  isRemote?: false;
   min?: number;
   max?: number;
   step?: number;
